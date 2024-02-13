@@ -7,33 +7,26 @@ import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
-
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Entity
-@Table(name = "cause")
+@Table(name = "profile")
 
-public class Cause {
+public class Profile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "name")
+    private String name;
 
     @Column(name = "createdAt")
     private Date createdAt;
 
-    @Column(name = "name")
-    private  String name;
-
     @Column(name = "updatedAt")
-    private Date  updatedAt;
+    private Date updatedAt;
 
 }
-
-
-
-
