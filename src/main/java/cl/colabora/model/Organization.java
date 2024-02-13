@@ -39,7 +39,7 @@ public class Organization {
     @Column(name = "username")
     private String userName;
 
-    @Column(name = "password")
+    @Column(name = "passWord")
     private String passWord;
 
     @Column(name = "address")
