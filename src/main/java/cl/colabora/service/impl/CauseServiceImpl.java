@@ -26,4 +26,20 @@ public class CauseServiceImpl implements CauseService {
     public List<Cause> getAllCauses() {
         return causeRepository.findAll();
     }
+
+    @Override
+    public Cause updateCause(Cause cause) {
+        return null;
+    }
+
+    @Override
+    public Cause getCauseById(Long id) {
+        return null;
+    }
+
+    @Override
+    public void deleteCause(Long id) {
+
+    }
+
 }
