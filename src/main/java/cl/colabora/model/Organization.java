@@ -45,4 +45,7 @@ public class Organization {
     @Column(name = "address")
     private String address;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private User user;
 }
