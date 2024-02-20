@@ -5,14 +5,12 @@ import cl.colabora.service.OrganizationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/orgganization")
+@RequestMapping("/api/organization")
 public class OrganizationController {
 
     @Autowired
@@ -23,4 +21,44 @@ public class OrganizationController {
         List<Organization> organizations = organizationService.getAllOrganizations();
         return new ResponseEntity<>(organizations, HttpStatus.OK);
     }
+
+    @GetMapping("/organizations/{id}")
+    public ResponseEntity<Organization> getOrganizationById(@PathVariable Long id) {
+        Organization organization = organizationService.getOrganizationById(id);
+        return new ResponseEntity<>(organization, HttpStatus.OK);
+    }
+
+    @PostMapping("/organizations")
+    public ResponseEntity<String> createOrganization(@RequestBody Organization organization){
+        try{
+            organizationService.createOrganization(organization);
+        } catch (Exception ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Organization created", HttpStatus.CREATED);
+    }
+
+    @PostMapping("/organizations/{id}")
+    public ResponseEntity<Organization> updateOrganization (@PathVariable Long id, @RequestBody Organization organization) {
+
+        Organization newOrganization = organizationService.getOrganizationById(id);
+        newOrganization.setName(organization.getName());
+        try{
+            organizationService.updateOrganization(newOrganization);
+        } catch (Exception ex){
+            return new ResponseEntity<>(newOrganization, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(newOrganization, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/organizations/{id}")
+    public ResponseEntity<String> deleteOrganization(@PathVariable Long id){
+        try{
+            organizationService.deleteOrganization(id);
+        } catch (Exception ex){
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>("Organization deleted", HttpStatus.OK);
+    }
+
 }
