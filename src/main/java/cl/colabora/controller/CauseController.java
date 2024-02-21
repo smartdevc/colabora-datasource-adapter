@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/cause")
+@RequestMapping("/api")
 public class CauseController {
     @Autowired
     private CauseService causeService;
@@ -23,7 +23,7 @@ public class CauseController {
 
     //get cause by id
     @GetMapping("/causes/{id}")
-    public ResponseEntity<Cause> getCauseById(@PathVariable Long id) {
+    public ResponseEntity<Cause> getCauseById(@PathVariable("id") Long id) {
         Cause cause = causeService.getCauseById(id);
         return new ResponseEntity<>(cause, HttpStatus.OK);
     }
@@ -44,16 +44,8 @@ public class CauseController {
 
     @PatchMapping("causes/{id}")
     public ResponseEntity<Cause> updateCause(@PathVariable Long id, @RequestBody Cause cause) {
-        //TODO: definir logica de actualizacion
-        Cause newCause = causeService.getCauseById(id);
-        newCause.setName(cause.getName());
-        newCause.setDescription(cause.getDescription());
-        try {
-            causeService.updateCause(newCause);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(newCause, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(newCause, HttpStatus.OK);
+        Cause causeUpdated = causeService.updateCause(cause);
+        return new ResponseEntity<>(causeUpdated, HttpStatus.OK);
 
     }
 
