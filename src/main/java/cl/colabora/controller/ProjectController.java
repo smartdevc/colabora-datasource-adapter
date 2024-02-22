@@ -40,15 +40,8 @@ public class ProjectController {
 
     @PostMapping("/projects/{id}")
     public ResponseEntity<Project> updateProject (@PathVariable Long id, @RequestBody Project project) {
-
-        Project newProject = projectService.getProjectById(id);
-        newProject.setName(project.getName());
-        try{
-            projectService.updateProject(newProject);
-        } catch (Exception ex){
-            return new ResponseEntity<>(newProject, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(newProject, HttpStatus.OK);
+        Project projectUpdate = projectService.updateProject(project);
+        return new ResponseEntity<>(projectUpdate, HttpStatus.OK);
     }
 
     @DeleteMapping("/projects/{id}")

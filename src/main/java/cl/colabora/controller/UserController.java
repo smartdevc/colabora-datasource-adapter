@@ -40,15 +40,8 @@ public class UserController {
 
     @PostMapping("/users/{id}")
     public ResponseEntity<User> updateUser (@PathVariable Long id, @RequestBody User user) {
-
-        User newUser = userService.getUserById(id);
-        newUser.setName(user.getName());
-        try{
-            userService.updateUser(newUser);
-        } catch (Exception ex){
-            return new ResponseEntity<>(newUser, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(newUser, HttpStatus.OK);
+        User userUpdate = userService.updateUser(user);
+        return new ResponseEntity<>(userUpdate, HttpStatus.OK);
     }
 
     @DeleteMapping("/users/{id}")

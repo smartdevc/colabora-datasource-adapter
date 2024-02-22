@@ -16,7 +16,7 @@ public class ProfileController {
     @Autowired
     private ProfileService profileService;
 
-    @GetMapping
+    @GetMapping("profiles")
     public ResponseEntity<List<Profile>> getAllProfiles() {
         List<Profile> profiles = profileService.getAllProfile();
         return new ResponseEntity<>(profiles, HttpStatus.OK);
@@ -40,14 +40,8 @@ public class ProfileController {
 
     @PatchMapping("profiles/{id}")
     public ResponseEntity<Profile> updateProfile(@PathVariable Long id, @RequestBody Profile profile) {
-        Profile newProfile = profileService.getProfileById(id);
-        newProfile.setName(profile.getName());
-        try {
-            profileService.updateProfile(newProfile);
-        } catch (Exception ex) {
-            return new ResponseEntity<>(newProfile, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(newProfile, HttpStatus.OK);
+        Profile profileUpdate = profileService.updateProfile(profile);
+        return new ResponseEntity<>(profileUpdate, HttpStatus.OK);
 
     }
 

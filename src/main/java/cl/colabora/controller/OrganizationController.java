@@ -40,15 +40,8 @@ public class OrganizationController {
 
     @PostMapping("/organizations/{id}")
     public ResponseEntity<Organization> updateOrganization (@PathVariable Long id, @RequestBody Organization organization) {
-
-        Organization newOrganization = organizationService.getOrganizationById(id);
-        newOrganization.setName(organization.getName());
-        try{
-            organizationService.updateOrganization(newOrganization);
-        } catch (Exception ex){
-            return new ResponseEntity<>(newOrganization, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-        return new ResponseEntity<>(newOrganization, HttpStatus.OK);
+        Organization organizationUpdate = organizationService.updateOrganization(organization);
+        return new ResponseEntity<>(organizationUpdate, HttpStatus.OK);
     }
 
     @DeleteMapping("/organizations/{id}")
