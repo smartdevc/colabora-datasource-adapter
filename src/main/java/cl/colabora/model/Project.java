@@ -25,8 +25,8 @@ public class Project {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "dateStar")
-    private Date dateStar;
+    @Column(name = "dateStart")
+    private Date dateStart;
 
     @Column(name = "createdAt")
     private Date createdAt;

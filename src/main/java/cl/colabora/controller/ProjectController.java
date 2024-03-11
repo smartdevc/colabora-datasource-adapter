@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "*")
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
