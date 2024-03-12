@@ -37,4 +37,7 @@ public class Project {
     @Column(name = "dateEnd")
     private Date dateEnd;
 
+    @Column(name= "imageUrl")
+    private String imageUrl;
+
 }
